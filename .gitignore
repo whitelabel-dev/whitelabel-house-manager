@@ -1,0 +1,10 @@
+node_modules/
+.next/
+.env
+.env.local
+.DS_Store
+
+# Real personal home data — fork example-home.yaml as <slug>-home.yaml
+data/garrett-home.yaml
+data/*-home.yaml
+!data/example-home.yaml

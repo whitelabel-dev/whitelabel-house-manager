@@ -8,7 +8,7 @@
 
 ## what it manages
 
-Two distinct planes that share one dashboard:
+Three distinct planes that share one dashboard:
 
 ### Plane A — Systems (what)
 
@@ -44,7 +44,44 @@ The humans who maintain the house — directory + dispatch + tracking.
 
 Each vendor has a card with: contact info, hourly rate, response-time average, prior jobs, photos of past work, payment history.
 
-## the dispatch loop (the magic)
+### Plane D — Belongings (3D inventory)
+
+Every physical thing you own, placed in its actual location in the [whitelabel-3d](https://github.com/whitelabel-dev/whitelabel-3d) world model of the house. Not a spreadsheet of items — a *3D walkthrough* where the shampoo is in the shower, the razor blades are in the medicine cabinet, the dog food is in the laundry room, the holiday lights are in the garage on the third shelf.
+
+Three sub-categories:
+
+| Type | Examples | Tracked dimension |
+|---|---|---|
+| **Consumables** | Shampoo, dog food, paper towels, toothpaste, batteries, light bulbs, filters | Quantity / level over time → auto-restock when low |
+| **Durables** | Furniture, appliances, electronics, tools, kitchen equipment | Warranty + service history (cross-links to Plane B vendors) |
+| **Valuables** | Jewelry, art, documents, collectibles, electronics | Insurance documentation + theft/disaster claims |
+
+**Why 3D, not a list:**
+
+| Capability | Flat list | 3D world-model inventory |
+|---|---|---|
+| "Where did I put my passport?" | hope you tagged it | spatial query against the model |
+| "What's running low?" | manual tally | each item has a level meter; AI watches |
+| "Pack the kitchen to move" | sort spreadsheet by room | walk the 3D room visually |
+| "Restock the bathroom" | mental gymnastics | AI dispatches the order via Plane B |
+| Voice ask: "we have toilet paper?" | open spreadsheet → search | voice → spatial answer |
+| Vision-impaired user: "where's my medication?" | impossible | voice → "kitchen counter, top shelf, third bottle from the left" |
+| Insurance claim after disaster | hope you have photos | export the model as proof of every item + value |
+
+The last row is mission-relevant — assistive surface for cognitive- + vision-impaired homeowners per [`whitelabel-principles/doctrines/disability-employment.md`](https://github.com/whitelabel-dev/whitelabel-principles).
+
+**Capture flow:**
+1. iPhone LiDAR scan of each room → glTF space model in [whitelabel-3d](https://github.com/whitelabel-dev/whitelabel-3d)
+2. Walk the rooms with the phone, "scan" items via camera + barcode + voice tag
+3. AI assists categorization (vision model identifies "this is a Costco bulk paper towels pack")
+4. Consumption tracking via passive signal (smart-shelf sensors, manual updates, purchase history)
+5. Reorder loop fires when level crosses threshold
+
+## the dispatch loops
+
+This is the [proactive-AI doctrine](https://github.com/whitelabel-dev/whitelabel-principles) made concrete. Three loops fire from three different triggers:
+
+### Loop 1 — Anomaly-driven (Plane A → Plane B)
 
 When System A detects a problem → automatically open a ticket → match to the right Vendor B → notify both parties → track to resolution.
 
@@ -62,6 +99,42 @@ When System A detects a problem → automatically open a ticket → match to the
 [vendor arrives → photo + invoice via mobile portal]
     ↓
 [ticket closes → cost logged → next preventive check scheduled]
+```
+
+### Loop 2 — Schedule-driven (recurring service)
+
+Calendar-based, fires on cadence regardless of sensors.
+
+```
+[recurring: maid cleaning every Tue 10am]
+    ↓
+[T-24h: confirm vendor still available]
+    ↓
+[T-1h: send arrival reminder + access code to vendor]
+    ↓
+[T+0: vendor checks in (geofence or manual)]
+    ↓
+[T+done: vendor checks out, photo log of work]
+    ↓
+[invoice processed → cost logged → next occurrence scheduled]
+```
+
+### Loop 3 — Consumption-driven (Plane D → reorder)
+
+The inventory loop. AI watches consumable levels, dispatches restock before run-out.
+
+```
+[shampoo bottle in master bath: level 18%, trending toward 0 in ~6 days]
+    ↓
+[reorder threshold = 20% → triggered]
+    ↓
+[check household preference: brand/size/source → Amazon Subscribe & Save / preferred vendor]
+    ↓
+[place order via affiliate or partner API]
+    ↓
+[notify homeowner: "ordered shampoo, arriving Thursday"]
+    ↓
+[on arrival, update inventory level to full + log cost]
 ```
 
 ## why this is whitelabel-shaped

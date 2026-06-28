@@ -1,0 +1,297 @@
+# example-home.yaml — seed data for a fictional 4BR/3BA Texas home.
+# Fork this file as `garrett-home.yaml` (gitignored) with your real systems,
+# vendors, and belongings. The schema in schema/migrations/0001_initial.sql
+# is what this maps to — every section corresponds to a table.
+
+place:
+  id: 00000000-0000-0000-0000-000000000001
+  kind: home
+  name: "Example Home"
+  address: "123 Example Lane, Austin TX"
+  world_model_id: null  # populate after first iPhone LiDAR scan in whitelabel-3d
+  rooms:
+    - master_bedroom
+    - master_bathroom
+    - kitchen
+    - living_room
+    - dining_room
+    - office
+    - garage
+    - laundry_room
+    - kids_bedroom_1
+    - kids_bedroom_2
+    - guest_bathroom
+
+# ────────────────────────────────────────────────────────────────────────────
+# Plane A — Systems
+# ────────────────────────────────────────────────────────────────────────────
+systems:
+  - kind: hvac
+    name: "Main Floor HVAC"
+    manufacturer: "Carrier"
+    model_number: "Infinity 24-A-Series"
+    install_date: 2023-05-12
+    warranty_until: 2033-05-12
+    room: utility_closet
+    metadata:
+      ecobee_thermostat_id: "TODO"
+      filter_size: "20x25x4"
+      filter_replace_cadence_months: 3
+
+  - kind: hvac
+    name: "Upstairs HVAC"
+    manufacturer: "Carrier"
+    model_number: "Infinity 24-A-Series"
+    install_date: 2023-05-12
+    room: attic
+
+  - kind: sprinkler
+    name: "Front Yard Sprinklers"
+    manufacturer: "Rachio"
+    model_number: "3 (16 zone)"
+    install_date: 2024-04-01
+    room: garage
+    metadata:
+      rachio_device_id: "TODO"
+      zones: 8
+
+  - kind: lights
+    name: "Living Room Hue"
+    manufacturer: "Philips Hue"
+    model_number: "Hub v2"
+    room: living_room
+    metadata:
+      hub_ip: "192.168.1.50"
+      bulb_count: 6
+
+  - kind: security
+    name: "Front Door Camera"
+    manufacturer: "Ring"
+    model_number: "Pro 2"
+    room: front_porch
+
+  - kind: appliance
+    name: "Kitchen Refrigerator"
+    manufacturer: "LG"
+    model_number: "LRFXS2503S"
+    install_date: 2023-01-15
+    warranty_until: 2028-01-15
+    room: kitchen
+
+  - kind: appliance
+    name: "Washer"
+    manufacturer: "LG"
+    model_number: "WM4000HWA"
+    install_date: 2023-01-15
+    room: laundry_room
+
+  - kind: pool
+    name: "Backyard Pool"
+    manufacturer: "Pentair"
+    model_number: "IntelliFlo VSF"
+    install_date: 2022-06-01
+    room: backyard
+
+  - kind: water
+    name: "Whole-Home Leak Detector"
+    manufacturer: "Phyn"
+    model_number: "Plus"
+    install_date: 2024-02-10
+    room: utility_closet
+
+# ────────────────────────────────────────────────────────────────────────────
+# Plane B — Vendors
+# ────────────────────────────────────────────────────────────────────────────
+vendors:
+  - role: cleaning
+    business_name: "Marisol's House Cleaning"
+    contact_name: "Marisol"
+    phone: "+1-512-555-0101"
+    hourly_rate: 35.00
+    preferred: true
+    rating: 4.9
+
+  - role: hvac
+    business_name: "Austin AC & Heat"
+    contact_name: "Mike"
+    phone: "+1-512-555-0202"
+    flat_rate: 150.00   # service call
+    preferred: true
+    rating: 4.7
+
+  - role: plumber
+    business_name: "Stat Plumbing"
+    contact_name: "Joe"
+    phone: "+1-512-555-0303"
+    flat_rate: 200.00
+    preferred: true
+    rating: 4.8
+
+  - role: electrician
+    business_name: "Bright Sparks Electric"
+    contact_name: "Dana"
+    phone: "+1-512-555-0404"
+    hourly_rate: 95.00
+    rating: 4.6
+
+  - role: lawn
+    business_name: "Green Yards Inc"
+    contact_name: "Carlos"
+    phone: "+1-512-555-0505"
+    flat_rate: 65.00    # per visit
+    preferred: true
+    rating: 4.8
+
+  - role: pool_service
+    business_name: "Crystal Pools"
+    contact_name: "Sarah"
+    phone: "+1-512-555-0606"
+    flat_rate: 110.00   # per visit
+    preferred: true
+    rating: 4.9
+
+  - role: pest
+    business_name: "Lone Star Pest"
+    contact_name: "Rick"
+    phone: "+1-512-555-0707"
+    flat_rate: 85.00    # quarterly
+    rating: 4.5
+
+  - role: handyman
+    business_name: "Around-the-House"
+    contact_name: "Bill"
+    phone: "+1-512-555-0808"
+    hourly_rate: 75.00
+    rating: 4.7
+
+# ────────────────────────────────────────────────────────────────────────────
+# Recurring service contracts
+# ────────────────────────────────────────────────────────────────────────────
+vendor_contracts:
+  - vendor: "Marisol's House Cleaning"
+    cadence: weekly
+    scope: "Full house — 4 hours, supplies included"
+    rate: 180.00
+
+  - vendor: "Green Yards Inc"
+    cadence: weekly
+    scope: "Mow, edge, blow"
+    rate: 65.00
+
+  - vendor: "Crystal Pools"
+    cadence: weekly
+    scope: "Skim, brush, vacuum, chemistry, equipment check"
+    rate: 110.00
+
+  - vendor: "Lone Star Pest"
+    cadence: quarterly
+    scope: "Interior + exterior treatment"
+    rate: 85.00
+
+# ────────────────────────────────────────────────────────────────────────────
+# Plane D — Belongings (just samples; real one would be 200-500+ items)
+# ────────────────────────────────────────────────────────────────────────────
+items:
+  # ── Consumables — master bathroom ──
+  - category: consumable
+    name: "Aesop Resurrection Hand Wash"
+    room: master_bathroom
+    shelf: vanity
+    current_level: 0.6
+    level_unit: fraction
+    reorder_threshold: 0.2
+    reorder_source: amazon_subscribe
+    reorder_quantity: 1
+
+  - category: consumable
+    name: "Davines Volu Shampoo"
+    room: master_bathroom
+    shelf: shower_left
+    current_level: 0.3
+    level_unit: fraction
+    reorder_threshold: 0.25
+    reorder_source: amazon_subscribe
+    reorder_quantity: 1
+
+  - category: consumable
+    name: "Gillette ProGlide Razor Blades (8-pack)"
+    room: master_bathroom
+    shelf: medicine_cabinet
+    current_level: 5
+    level_unit: count
+    reorder_threshold: 2
+    reorder_source: amazon_subscribe
+    reorder_quantity: 8
+
+  # ── Consumables — kitchen ──
+  - category: consumable
+    name: "Costco Bounty Paper Towels (12-pack)"
+    room: kitchen
+    shelf: pantry_bottom
+    current_level: 9
+    level_unit: count
+    reorder_threshold: 3
+    reorder_source: amazon_subscribe
+
+  - category: consumable
+    name: "Cascade Dishwasher Pods (60-count tub)"
+    room: kitchen
+    shelf: under_sink
+    current_level: 0.45
+    level_unit: fraction
+    reorder_threshold: 0.2
+    reorder_source: amazon_subscribe
+
+  # ── Consumables — laundry room ──
+  - category: consumable
+    name: "Tide HE Liquid Detergent"
+    room: laundry_room
+    shelf: above_washer
+    current_level: 0.55
+    level_unit: fraction
+    reorder_threshold: 0.2
+    reorder_source: amazon_subscribe
+
+  - category: consumable
+    name: "Hill's Science Diet Adult Lamb & Rice (30lb)"
+    room: laundry_room
+    shelf: dog_food_bin
+    current_level: 18
+    level_unit: lb
+    reorder_threshold: 5
+    reorder_source: chewy_autoship
+
+  # ── Durables ──
+  - category: durable
+    name: "Vitamix A3500"
+    room: kitchen
+    shelf: countertop
+    purchase_date: 2023-11-25
+    purchase_price: 649.95
+    warranty_until: 2033-11-25
+
+  - category: durable
+    name: "DeWalt 20V Drill Set"
+    room: garage
+    shelf: tool_bench_top
+    purchase_date: 2022-08-14
+    purchase_price: 219.00
+    warranty_until: 2025-08-14
+
+  # ── Valuables ──
+  - category: valuable
+    name: "Apple Watch Ultra 2"
+    room: master_bedroom
+    shelf: nightstand
+    purchase_date: 2024-10-01
+    purchase_price: 799.00
+    insurance_value: 799.00
+
+  - category: valuable
+    name: "Passport (Garrett)"
+    room: office
+    shelf: filing_cabinet_top_drawer
+    insurance_value: 0
+    metadata:
+      expiration: 2032-04-15
+      issuing_country: US
