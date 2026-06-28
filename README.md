@@ -8,7 +8,7 @@
 
 ## what it manages
 
-Three distinct planes that share one dashboard:
+**Full home operating system** — one dashboard for *everything that touches your home*. Eight planes share one timeline + one notification surface + one auto-dispatch engine:
 
 ### Plane A — Systems (what)
 
@@ -16,15 +16,23 @@ The physical things in the house — monitor + control + alert.
 
 | System | What it does | Integrations (planned) |
 |---|---|---|
-| **HVAC / AC** | Set schedules; alert if running 24/7 or never cycling | Ecobee, Nest, Honeywell, generic Matter thermostats |
-| **Sprinklers / irrigation** | Schedules + flow-rate anomaly detection (leak alert) | Rachio, Rainbird, Hunter Hydrawise |
-| **Lights** | Scenes, schedules, away-mode automation | Hue, LIFX, Lutron Caséta, Matter |
-| **Security** | Cameras, doors, alarm system, motion | Ring, Arlo, generic ONVIF, Reolink |
-| **Appliances** | Smart-monitor washer/dryer/dishwasher/fridge for failure-prediction signals | LG ThinQ, Samsung SmartThings, Bosch Home Connect |
-| **Pool / spa** | Pump, temp, chemistry | Pentair, Hayward |
-| **Garage / locks** | Status, remote control, access codes for vendors | MyQ, August, Schlage |
-| **Energy** | Usage breakdown by circuit | Sense, Emporia |
-| **Water** | Flow + leak detection | Phyn, Flo by Moen |
+| **HVAC / AC** | Schedules, runtime, failure alerts | Ecobee, Nest, Honeywell, Matter |
+| **Sprinklers / irrigation** | Schedules + leak detection (flow anomaly) | Rachio, Rainbird, Hunter Hydrawise |
+| **Lights** | Scenes, schedules, away-mode automation | Philips Hue, LIFX, Lutron Caséta, Matter |
+| **Smart plugs / outlets** | Schedule + remote control of any device | TP-Link **Kasa**, Wemo, Wyze, Tapo |
+| **Security & cameras** | Doors, alarm, motion, recording | Ring, Arlo, ADT, Eufy, generic ONVIF |
+| **Smart locks** | Remote unlock, scheduled codes for vendors | August, Schlage, Yale, Level |
+| **Doorbells** | Live + clips | Ring, Nest Hello, Eufy |
+| **Garage doors** | Open/close, history, alerts when left open | MyQ, Tailwind, Chamberlain |
+| **Appliances** | Failure prediction via runtime signals | LG ThinQ, Samsung SmartThings, Bosch Home Connect, Miele |
+| **Pool / spa** | Pump runtime, temp, chemistry | Pentair, Hayward, Jandy iAqualink |
+| **Water leak detection** | Flow + leak alerts (catches before flood) | Phyn, Flo by Moen, Moen Smart Water |
+| **Energy monitoring** | Per-circuit usage + anomaly | Sense, Emporia, Span panel |
+| **Solar / battery** | Production, storage state, grid sell | Enphase, Tesla Powerwall, SolarEdge |
+| **Smoke + CO detectors** | Battery + test cadence + alarms | Nest Protect, First Alert, Kidde Smart |
+| **Window coverings** | Auto schedule + scene integration | Lutron Serena, Hunter Douglas PowerView, IKEA FYRTUR |
+| **Voice / hubs** | Routing + voice control | Alexa, Google Home, Apple HomeKit, Home Assistant, SmartThings hub |
+| **EV chargers** | Charging schedule, energy reporting | Tesla Wall Connector, ChargePoint, Wallbox |
 
 ### Plane B — Service providers (who)
 
@@ -76,6 +84,68 @@ The last row is mission-relevant — assistive surface for cognitive- + vision-i
 3. AI assists categorization (vision model identifies "this is a Costco bulk paper towels pack")
 4. Consumption tracking via passive signal (smart-shelf sensors, manual updates, purchase history)
 5. Reorder loop fires when level crosses threshold
+
+### Plane E — Subscriptions & Recurring
+
+The bills + memberships + auto-pay graph. *Surface what you're paying for, what's about to renew, what nobody's used in 60 days.* Same anti-bloat pattern that killed $225/mo in SaaS — applied to your household.
+
+| Category | Examples |
+|---|---|
+| **Mortgage / lease** | Monthly payment, escrow, next due |
+| **Utilities** | Electric (TXU/Reliant), water (city), gas (Atmos), internet (Spectrum/Fiber), trash |
+| **Streaming** | Netflix, Disney+, Spotify, Apple TV+, Max, Prime, Peacock |
+| **Memberships** | Costco, Amazon Prime, Sam's, AAA, Equinox |
+| **Insurance** | Homeowner's, auto, umbrella, life, dental, vision, pet |
+| **HOA / dues** | Monthly, special assessments |
+| **Subscriptions** | Wine club, Chewy autoship, BarkBox, meal kit |
+
+Each row links to: provider, amount, cadence, next charge date, last value-check ("Nobody watched Peacock in 47 days — keep?").
+
+### Plane F — Documents & Records
+
+Everything you'd panic-search for after a flood / fire / sale.
+
+| Doc class | What's in it |
+|---|---|
+| **Deeds / titles** | Property deed, vehicle titles, boat title |
+| **Insurance policies** | Homeowner's binder, auto cards, umbrella, life |
+| **Warranties** | Appliance, HVAC, roof, solar, electronics |
+| **Permits & inspections** | Building permits, septic, alarm, pool, HOA approvals |
+| **Tax records** | Property tax, home improvement receipts (basis), 1098s |
+| **Manuals** | Every appliance + system PDF, searchable |
+| **Receipts** | High-value purchases for insurance proof + warranty |
+
+### Plane G — Calendar & Cadence
+
+The non-negotiable recurring stuff that quietly piles up if you don't track it.
+
+- Trash + recycling pickup days
+- HVAC filter swap (every 3 mo)
+- Smoke detector battery (every 12 mo) + CO detector check
+- Water filter cartridges
+- Annual HVAC tune-up
+- Annual chimney sweep
+- Annual gutter clean
+- Smoke detector test
+- Roof inspection (every 3 yr)
+- Pool/spa filter rotation
+- Pest control quarterly
+- HOA meetings
+- Property tax due dates
+- Insurance renewal dates
+- DMV registration renewals
+
+### Plane H — Household members, pets, contacts
+
+The people + animals in the house + the emergency-reach graph.
+
+| Type | What |
+|---|---|
+| **Family** | Names, birthdates, allergies, medications, school/work contacts |
+| **Pets** | Vet, meds, food brand + amount, vaccinations, license # |
+| **Emergency** | Neighbors with key, primary doctor, pet sitter, ICE contacts |
+| **Service-only** | Cleaning + lawn + handyman crew (cross-links to Plane B) |
+| **Babysitters / petsitters** | Vetted list with rates + last-used date |
 
 ## the dispatch loops
 
